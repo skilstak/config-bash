@@ -307,5 +307,38 @@ preview () {
     -sw
 }
 
-export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk imgdev getncheck pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview
+save () { 
+    local y;
+    local repo;
+    local user=$(git config user.name);
+    [[ -z "$user" ]] && echo "Git doesn't look configured yet." && return 1;
+    git rev-parse > /dev/null 2>&1;
+    if [[ ! $? = "0" ]]; then
+        read -p "$(sol y)Not a git repo. Create? $(sol b3)" y;
+        if [[ $y =~ ^[yY] ]]; then
+            touch README.md;
+            read -p "$(sol y)GitLab path: $(sol b3)" repo;
+            echo -n $(sol c);
+            git init;
+            git remote add origin "git@gitlab.com:$repo.git";
+            git add -A .;
+            git commit -a -m initial;
+            git push -u origin master;
+            echo -n $(sol x);
+        fi;
+        return 0;
+    fi;
+    if [[ -z "$(git status -s)" && $(git rev-list --count origin/master..master) = 0 ]]; then
+        echo Already at the latest.;
+        return 0;
+    fi;
+    local comment=save;
+    [ ! -z "$*" ] && comment="$*";
+    git pull;
+    git add -A .;
+    git commit -a -m "$comment";
+    git push
+}
+
+export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk imgdev getncheck pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save
 
