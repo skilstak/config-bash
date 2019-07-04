@@ -30,11 +30,12 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-for t in aliases functions colors private; do
+for t in aliases functions colors private completion; do
   [[ -f ~/.bash_$t ]] && . ~/.bash_$t
 done
 
 [[ -r /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
+[[ -r ~/.bash_completion ]] && . ~/.bash_completion
 
 complete -cf sudo
 
@@ -51,7 +52,7 @@ fi
 
 # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' 
 
-[[ $(which vim) ]] && alias vi=vim
+[[ $(type vim) ]] && alias vi=vim
 export EDITOR=vi
 export VISUAL=vi
 
