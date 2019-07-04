@@ -39,3 +39,4 @@ alias ghping="ssh git@github.com"
 alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0| grep -E "state|to\ full|percentage"'
 alias vimpluginstall="vim +':PlugInstall' +':q!' +':q!'"
 alias open="gnome-open"
+alias config="cd $HOME/repos/config"
