@@ -126,7 +126,6 @@ duck () {
   lynx "https://duckduckgo.com/lite?q=$url"
 }
 alias "?"=duck
-alias skilstak="duck site:skilstak.io "
 
 google () {
   local url=$(urlencode "$*")
