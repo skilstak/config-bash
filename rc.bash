@@ -7,6 +7,7 @@ export PATH=\
 $HOME/bin:\
 $HOME/go/bin:\
 $HOME/.cargo/bin:\
+/usr/local/go/bin:\
 /usr/local/bin:\
 /usr/local/sbin:\
 /usr/sbin:\

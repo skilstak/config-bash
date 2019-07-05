@@ -339,5 +339,9 @@ save () {
     git push
 }
 
-export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk imgdev getncheck pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save
+caniuse () {
+  xdg-open "https://caniuse.com/#search=$(urlencode $1)" &>/dev/null
+}
+
+export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk imgdev getncheck pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save caniuse
 
