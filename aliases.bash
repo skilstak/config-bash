@@ -51,6 +51,9 @@ alias vimpluginstall="vim +':PlugInstall' +':q!' +':q!'"
 alias repos="cd ~/repos"
 alias config="cd ~/repos/config"
 alias private="cd ~/repos/private"
+alias downloads="cd ~/Downloads"
+alias desktop="cd ~/Desktop"
+alias pictures="cd ~/Pictures"
 
 if [[ $(which lynx) ]]; then
   [[ -r ~/repos/config/lynx/lynx.cfg ]]  && lynxcfg="-cfg=$HOME/repos/config/lynx/lynx.cfg"
