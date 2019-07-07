@@ -1,7 +1,8 @@
  
 [[ $- != *i* ]] && return
 
-unset HISTFILE 
+# uncomment on hyper-secure systems
+# unset HISTFILE 
 
 export PATH=\
 $HOME/bin:\
@@ -37,8 +38,6 @@ done
 
 [[ -r /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
 [[ -r ~/.bash_completion ]] && . ~/.bash_completion
-
-complete -cf sudo
 
 case ${TERM} in
   xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|interix|konsole*) PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"' ;;
