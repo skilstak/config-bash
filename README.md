@@ -4,8 +4,7 @@
 
 Part of the [SkilStak Terminal Master configuration](https://gitlab.com/skilstak/config):
 
-* you are a member of the Linux master race;
-* you are a member of the terminal master race;
+* you aspire to be a Linux terminal master;
 * you want to Vi/m all the things;
 * you prefer to extend Vi/m with Bash and not Vimscript;
 * you consider `tmux` + `bash` + `vim` your "IDE";
