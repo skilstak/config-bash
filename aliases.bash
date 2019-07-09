@@ -23,8 +23,8 @@ alias lmr='lr |more'   #  Pipe through 'more'
 
 alias lasttouched="ls -1 -dtr * | tail -1"
 alias lastimage="ls -1 -dtr *.{img,iso} 2>/dev/null | tail -1"
-alias lastdown="ls -1 -dtr ~/Downloads/* | tail -1"
-alias lastpic="ls -1 -dtr ~/Pictures/* | tail -1"
+alias lastdown="ls --color=never -1 -dtr ~/Downloads/* | tail -1"
+alias lastpic="ls --color=never -1 -dtr ~/Pictures/* | tail -1"
 
 alias wip="curl ipinfo.io"
 alias weather="curl wttr.in"
@@ -54,6 +54,7 @@ alias private="cd ~/repos/private"
 alias downloads="cd ~/Downloads"
 alias desktop="cd ~/Desktop"
 alias pictures="cd ~/Pictures"
+alias videos="cd ~/Videos"
 
 if [[ $(which lynx) ]]; then
   [[ -r ~/repos/config/lynx/lynx.cfg ]]  && lynxcfg="-cfg=$HOME/repos/config/lynx/lynx.cfg"

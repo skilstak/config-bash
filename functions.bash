@@ -19,9 +19,9 @@ cdusb () {
 
 mvlast () {
   if [ -d ./assets ]; then
-    mv "`lastdown`" ./assets/$1
+    mv "$(lastdown)" ./assets/$1
   else
-    mv "`lastdown`" ./$1
+    mv "$(lastdown)" ./$1
   fi
 }
 
