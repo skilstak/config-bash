@@ -6,7 +6,7 @@ Part of the [SkilStak Terminal Master configuration](https://gitlab.com/skilstak
 
 * you aspire to be a Linux terminal master;
 * you want to Vi/m all the things;
-* you prefer to extend Vi/m with Bash, not Vimscript;
+* you prefer to extend Vi/m with Bash (not vimscript);
 * you consider `tmux` + `bash` + `vim` your "IDE";
 * you know what Plug is and prefer it for obvious reasons;
 * you've realized `pandoc` is the only SSG you'll ever need;
