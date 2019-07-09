@@ -1,5 +1,9 @@
 # Terminal Master Bash Configuration
 
+*[This repo is mirrored from ![Fox](gitlab.png) GitLab (a far superior Git hosting platform).](https://gitlab.com/skilstak/config/vim)*
+
+![Vim Logo](logo.png)
+
 Part of the [SkilStak Terminal Master configuration](https://gitlab.com/skilstak/config):
 
 * you are a member of the Linux master race;
