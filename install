@@ -7,3 +7,4 @@ ln -fs "$PWD/aliases.bash" "$HOME/.bash_aliases"
 ln -fs "$PWD/colors.bash" "$HOME/.bash_colors"
 ln -fs "$PWD/functions.bash" "$HOME/.bash_functions"
 ln -fs "$PWD/dircolors" "$HOME/.dircolors"
+
