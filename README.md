@@ -23,5 +23,5 @@ Part of the [SkilStak Terminal Master configuration](https://gitlab.com/skilstak
 * you enjoy and understand xckd comics;
 * you are friendly to muggles who will never grasp your magic ability.
 
-For more information visit [skilstak.io](https://skilstak.io).
+For more information visit [skilstak.io](https://skilstak.io/terminals).
 
