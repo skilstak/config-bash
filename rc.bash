@@ -1,8 +1,14 @@
  
 [[ $- != *i* ]] && return
 
-# uncomment on hyper-secure systems
-# unset HISTFILE 
+
+[ -z "$OS" ] && OS=`uname`
+case "$OS" in
+  *indows* )        PLATFORM=windows ;;
+  Linux )           PLATFORM=linux ;;
+  FreeBSD|Darwin )  PLATFORM=mac ;;
+esac
+export PLATFORM OS
 
 export PATH=\
 $HOME/bin:\
@@ -17,14 +23,17 @@ $HOME/.cargo/bin:\
 /sbin:\
 /bin
 
+HISTCONTROL=ignoredups:ignorespace
+export PROMPT_COMMAND="history -a; history -c; history -r"
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 set -o notify
 set -o noclobber
 set -o ignoreeof
 set bell-style none
-set +h
+set +h # disable hashing
 set -o vi
 shopt -s checkwinsize
+shopt -s histappend
 shopt -s expand_aliases
 shopt -s globstar
 
@@ -56,11 +65,16 @@ fi
 export EDITOR=vi
 export VISUAL=vi
 
-if [ -x /usr/bin/dircolors ]; then
-  if [ -r ~/.dircolors ]; then
-    eval "$(dircolors -b ~/.dircolors)"
-  else
-    eval "$(dircolors -b)"
-  fi
+if [ $PLATFORM != 'mac' ]; then
+	alias ls='ls -h --color'
+else
+  #export CLICOLOR_FORCE=1
+  export CLICOLOR=1
+  export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 fi
 
+if [ $PLATFORM == mac ]; then
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+  fi
+fi
