@@ -71,3 +71,4 @@ alias twitter="xdg-open https://twitter.com &>/dev/null"
 alias medium="xdg-open https://medium.com &>/dev/null"
 alias reddit="xdg-open https://reddit.com &>/dev/null"
 alias xkcd="xdg-open https://xkcd.com &>/dev/null"
+
