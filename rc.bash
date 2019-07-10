@@ -73,6 +73,14 @@ else
   export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 fi
 
+if [ -x /usr/bin/dircolors ]; then
+  if [ -r ~/.dircolors ]; then
+    eval "$(dircolors -b ~/.dircolors)"
+  else
+    eval "$(dircolors -b)"
+  fi
+fi
+
 if [ $PLATFORM == mac ]; then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
