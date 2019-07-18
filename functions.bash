@@ -347,5 +347,22 @@ gocd () {
   cd $(go list -f '{{.Dir}}' ...$1)
 }
 
-export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk imgdev getncheck pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd
+godistbuild () {
+  relpath="$1"
+  log="$PWD/build.log"
+  >| $log
+
+  for dist in $(go tool dist list); do
+    [[ ! -d $dist ]] && mkdir -p $dist
+      os=${dist%/*}
+      arch=${dist#*/}
+      echo "BUILDING: $os-$arch" |tee -a $log
+      cd $dist
+      GOOS=$os GOARCH=$arch go build $relpath  >> $log 2>&1
+      echo >> $log
+      cd - &>/dev/null
+  done
+}
+
+export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk imgdev getncheck pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild
 
