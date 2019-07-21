@@ -42,11 +42,10 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 for t in aliases functions colors private completion; do
-  [[ -f ~/.bash_$t ]] && . ~/.bash_$t
+  [[ -r ~/.bash_$t ]] && . ~/.bash_$t
 done
 
 [[ -r /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
-[[ -r ~/.bash_completion ]] && . ~/.bash_completion
 
 case ${TERM} in
   xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|interix|konsole*) PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"' ;;
