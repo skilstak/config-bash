@@ -35,7 +35,8 @@ set -o vi
 shopt -s checkwinsize
 shopt -s histappend
 shopt -s expand_aliases
-shopt -s globstar
+
+[[ $PLATFORM != mac ]] && shopt -s globstar
 
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
