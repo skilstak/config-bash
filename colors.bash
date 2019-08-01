@@ -2,8 +2,10 @@
 # bash will have 256 color support (at
 # least on any interactive systems)
 
-export CLICOLOR=1
-export LSCOLORS=gxfxbEaEBxxEhEaDaCaD
+if [[ $PLATFORM == 'mac' ]]; then
+  export CLICOLOR=1
+  export LSCOLORS=gxfxbEaEBxxEhEaDaCaD
+fi
 
 solnames=(y o r m v b c g)
 

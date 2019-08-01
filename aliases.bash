@@ -4,7 +4,8 @@ alias path='echo -e ${PATH//:/\\n}'
 
 alias more='less -R'
 
-alias ls='ls --color=auto'
+[[ $PLATFORM != mac ]] && alias ls='ls --color=auto'
+
 alias lx='ls -AlXB'    #  Sort by extension.
 alias lxr='ls -ARlXB'  #  Sort by extension.
 alias lk='ls -AlSr'    #  Sort by size, biggest last.
