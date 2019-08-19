@@ -141,27 +141,6 @@ zeroblk () {
   sync
 }
 
-getncheck () {
-  local url=$1
-  local goodsha=$2
-  local usage="usage: getncheck URL SHA"
-  [[ -z "$url" || -z "$goodsha" ]] && echo $usage && return 1
-  local file=${url##*/}
-  wget -O $file "$url"
-
-  echo -n Validating $file ...
-  local sha=$(sha256sum -b $file); sha=${sha/ *}
-  if [[ $sha != $goodsha ]]; then
-    echo $(sol r)Woah! Looks like a corrupt or hacked download.$(sol x)
-    echo $(sol r)Removing $file to be safe.$(sol x)
-    rm -f $file
-    return 1
-  fi
-  echo done.
-
-  isyes $(sol y)Wanna image something with it?$(sol x) && imgdev $file
-}
-
 pubkey () {
   local name=id_rsa
   [[ -n "$1" ]] && name="$1"
@@ -330,5 +309,5 @@ godistbuild () {
   done
 }
 
-export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk imgdev getncheck pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild
+export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild
 
