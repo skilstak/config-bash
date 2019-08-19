@@ -141,40 +141,6 @@ zeroblk () {
   sync
 }
 
-imgdev () {
-  local file=$1
-  [[ -z "$file" ]] && echo "usage: imgdev IMGFILE" && return 1
-  [[ ! -f "$file" ]] && echo "file not found: $file"  && return 1
-
-  echo -n "Extracting ... "
-  ex "$file"
-  [[ $? -eq 0 ]] && file=$(lastimage)
-  [[ -z "$file" ]] && echo "Humm, not an image." && return 1
-  echo -n "$file ..."
-  echo done.
-
-  lsblk
-  echo -n "$(sol y)Which device should I destroy and write the image to?$(sol x) "
-  local blkdev
-  read blkdev
-  [[ ! -b "/dev/$blkdev" ]] && echo not a block device && return 1
-
-  echo -n Unmounting ...
-  for i in /dev/$blkdev*; do umount $i 2>/dev/null; done
-  echo done.
-
-  #isyes "$(sol r)Are you absolutely sure you want to completly erase /dev/$blkdev?$(sol x)" || return 1
-  #echo -n Zeroing out $blkdev ... 
-  #sudo dd if=/dev/zero of=/dev/$blkdev bs=4M status=progress
-  #sync
-  #echo done.
-
-  echo -n Writing $file to $blkdev ...
-  sudo dd if="$PWD/$file" of=/dev/$blkdev bs=4M status=progress
-  sync
-  echo done.
-}
-
 getncheck () {
   local url=$1
   local goodsha=$2

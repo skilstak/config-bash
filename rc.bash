@@ -92,6 +92,6 @@ export LESS_TERMCAP_mb=$(sol m)
 export LESS_TERMCAP_md=$(sol y)
 export LESS_TERMCAP_me=$'\e[0m'
 export LESS_TERMCAP_se=$'\e[0m'
-#export LESS_TERMCAP_so=$(sol b)
+export LESS_TERMCAP_so=$(sol b)
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$(sol v)
