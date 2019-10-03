@@ -51,7 +51,7 @@ tstamp () {
 }
 
 now () {
-  echo $1 $(date "+%A, %B %e, %Y - %l:%M:%S%p")
+  echo $1 $(date "+%A, %B %e, %Y - %l:%M:%S %p")
 }
 
 # didn't want to stoop to eval
