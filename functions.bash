@@ -289,7 +289,7 @@ save () {
 #}
 
 gocd () {
-  cd $(go list -f '{{.Dir}}' ...$1)
+  cd $(go list -f '{{.Dir}}' ...$1) &>/dev/null
 }
 
 godistbuild () {
