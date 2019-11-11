@@ -15,6 +15,7 @@ $HOME/bin:\
 $HOME/go/bin:\
 $HOME/.cargo/bin:\
 /usr/local/go/bin:\
+/usr/local/tinygo/bin:\
 /usr/local/bin:\
 /usr/local/sbin:\
 /usr/sbin:\
@@ -95,3 +96,8 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$(sol b)
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$(sol v)
+
+# Node Version Manager
+export NVM_DIR="$HOME/repos/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
