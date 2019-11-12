@@ -31,7 +31,7 @@ set -o notify
 set -o noclobber
 set -o ignoreeof
 set bell-style none
-set +h # disable hashing
+#set +h # disable hashing
 set -o vi
 shopt -s checkwinsize
 shopt -s histappend
