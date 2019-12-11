@@ -57,7 +57,7 @@ alias desktop="cd ~/Desktop"
 alias pictures="cd ~/Pictures"
 alias videos="cd ~/Videos"
 
-if [[ $(which lynx) ]]; then
+if [[ $(type lynx) ]]; then
   [[ -r ~/repos/config/lynx/lynx.cfg ]]  && lynxcfg="-cfg=$HOME/repos/config/lynx/lynx.cfg"
   [[ -r ~/repos/private/lynx/lynx.cfg ]]  && lynxcfg="-cfg=$HOME/repos/private/lynx/lynx.cfg"
   [[ -r ~/.lynx.cfg ]] && lynxcfg="-cfg=$HOME/.lynx.cfg"
