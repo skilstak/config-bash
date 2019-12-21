@@ -292,6 +292,13 @@ gocd () {
   cd $(go list -f '{{.Dir}}' ...$1 2>/dev/null) 
 }
 
+gott () {
+  while true; do 
+    go test
+    sleep 3
+  done
+}
+
 godistbuild () {
   relpath="$1"
   log="$PWD/build.log"
@@ -309,5 +316,5 @@ godistbuild () {
   done
 }
 
-export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild
+export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild gott
 
