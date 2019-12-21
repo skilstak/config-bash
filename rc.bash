@@ -39,10 +39,6 @@ shopt -s expand_aliases
 
 [[ $PLATFORM != mac ]] && shopt -s globstar
 
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
 for t in aliases functions colors private completion; do
   [[ -r ~/.bash_$t ]] && . ~/.bash_$t
 done
@@ -59,8 +55,6 @@ if [[ ${EUID} == 0 ]] ; then
 else
   PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
 fi
-
-# PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' 
 
 [[ $(type vim) ]] && alias vi=vim
 export EDITOR=vi
