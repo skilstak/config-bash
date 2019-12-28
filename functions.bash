@@ -317,8 +317,37 @@ godistbuild () {
 }
 
 gh () {
-  curl -H "Authorization: token $(cat $HOME/repos/private/tokens/gh)" $*
-}
+  local auth="Authorization: token $(cat $HOME/repos/private/tokens/gh)"
+  case "$1" in
+    create)
+      [[ -z "$2" ]] && echo "gh create <repo>" && return;
+      curl -X POST -H "$auth" -d '{"name":"'"$2"'","private":true}' "https://api.github.com/user/repos";
+      mkdir -p "$HOME/repos/$2"
+      cd "$HOME/repos/$2"
+      gh init
+      ;;
+    init)
+      [[ -d .git ]] && echo "$(sol r)Already has a $(sol g).git$(sol x)" && return
+      local user=$(git config --get user.name)
+      local repo=$(basename $PWD)
+      [[ -f README.md ]] || echo "# $repo" >> README.md
+      git init
+      git add README.md
+      git commit -m init
+      git remote add origin "git@github.com:$user/$repo"
+      git push -u origin master
+      ;;
+    delete)
+      [[ -z "$2" ]] && echo "gh delete <repo>" && return;
+      local user=$(git config --get user.name)
+      local repo="$2"
+      isyes "$(sol r)Do you really want to delete '$(sol g)$user/$repo$(sol r)'?$(sol x)" || return
+      curl -X DELETE -H "$auth" "https://api.github.com/repos/$user/$repo";
+      rm -rf "$HOME/repos/$repo"
+      [[ "$PWD" == "$HOME/repos/$repo" ]] && cd ..
+      ;;
+  esac
+} && export gh && complete -W "create init delete" gh
 
-export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild gott gh
+export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild gott
 
