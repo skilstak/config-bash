@@ -320,17 +320,16 @@ gh () {
   local auth="Authorization: token $(cat $HOME/repos/private/tokens/gh)"
   case "$1" in
     create)
-      [[ -z "$2" ]] && echo "gh create <repo>" && return;
-      curl -X POST -H "$auth" -d '{"name":"'"$2"'","private":true}' "https://api.github.com/user/repos";
-      mkdir -p "$HOME/repos/$2"
-      cd "$HOME/repos/$2"
+      local repo="$2"
+      [[ -z "$repo" ]] && repo="$(basename $PWD)"
+      curl -X POST -H "$auth" -d '{"name":"'"$repo"'","private":true}' "https://api.github.com/user/repos";
       gh init
       ;;
     init)
       [[ -d .git ]] && echo "$(sol r)Already has a $(sol g).git$(sol x)" && return
       local user=$(git config --get user.name)
       local repo=$(basename $PWD)
-      [[ -f README.md ]] || echo "# $repo" >> README.md
+      touch README.md
       git init
       git add README.md
       git commit -m init
@@ -338,13 +337,13 @@ gh () {
       git push -u origin master
       ;;
     delete)
-      [[ -z "$2" ]] && echo "gh delete <repo>" && return;
-      local user=$(git config --get user.name)
       local repo="$2"
+      [[ -z "$repo" ]] && repo="$(basename $PWD)"
+      local user=$(git config --get user.name)
       isyes "$(sol r)Do you really want to delete '$(sol g)$user/$repo$(sol r)'?$(sol x)" || return
       curl -X DELETE -H "$auth" "https://api.github.com/repos/$user/$repo";
       rm -rf "$HOME/repos/$repo"
-      [[ "$PWD" == "$HOME/repos/$repo" ]] && cd ..
+      rm -rf "$HOME/go/src/github.com/$user/$repo"
       ;;
   esac
 } && export gh && complete -W "create init delete" gh
