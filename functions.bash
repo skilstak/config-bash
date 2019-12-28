@@ -276,7 +276,7 @@ save () {
         echo Already at the latest.;
         return 0;
     fi;
-    local comment=save;
+    local comment=wip;
     [ ! -z "$*" ] && comment="$*";
     git pull;
     git add -A .;
@@ -316,5 +316,9 @@ godistbuild () {
   done
 }
 
-export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild gott
+gh () {
+  curl -H "Authorization: token $(cat $HOME/repos/private/tokens/gh)" $*
+}
+
+export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild gott gh
 
