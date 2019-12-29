@@ -318,17 +318,22 @@ godistbuild () {
 
 gh () {
   local auth="Authorization: token $(cat $HOME/repos/private/tokens/gh)"
+  local user=$(git config --get user.name)
+  local repo=$(basename $PWD)
+  [[ -n "$2" ]] && repo="$2"
   case "$1" in
     create)
-      local repo="$2"
-      [[ -z "$repo" ]] && repo="$(basename $PWD)"
       curl -X POST -H "$auth" -d '{"name":"'"$repo"'","private":true}' "https://api.github.com/user/repos";
       gh init
       ;;
+    private)
+      curl -X PATCH -H "$auth" -d '{"private":true}' "https://api.github.com/repos/$user/$repo";
+      ;;
+    public)
+      curl -X PATCH -H "$auth" -d '{"private":false}' "https://api.github.com/repos/$user/$repo";
+      ;;
     init)
       [[ -d .git ]] && echo "$(sol r)Already has a $(sol g).git$(sol x)" && return
-      local user=$(git config --get user.name)
-      local repo=$(basename $PWD)
       touch README.md
       git init
       git add README.md
@@ -337,16 +342,13 @@ gh () {
       git push -u origin master
       ;;
     delete)
-      local repo="$2"
-      [[ -z "$repo" ]] && repo="$(basename $PWD)"
-      local user=$(git config --get user.name)
       isyes "$(sol r)Do you really want to delete '$(sol g)$user/$repo$(sol r)'?$(sol x)" || return
       curl -X DELETE -H "$auth" "https://api.github.com/repos/$user/$repo";
       rm -rf "$HOME/repos/$repo"
       rm -rf "$HOME/go/src/github.com/$user/$repo"
       ;;
   esac
-} && export gh && complete -W "create init delete" gh
+} && export gh && complete -W "create init delete private public" gh
 
 export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild gott
 
