@@ -316,6 +316,9 @@ godistbuild () {
   done
 }
 
+# TODO add these back to the functions where they are defined for better cutting and pasting
+export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild gott
+
 gh () {
   local auth="Authorization: token $(cat $HOME/repos/private/tokens/gh)"
   local user=$(git config --get user.name)
@@ -323,14 +326,14 @@ gh () {
   [[ -n "$2" ]] && repo="$2"
   case "$1" in
     create)
-      curl -X POST -H "$auth" -d '{"name":"'"$repo"'","private":true}' "https://api.github.com/user/repos";
+      curl -X POST -H "$auth" -d '{"name":"'"$repo"'","private":true}' "https://api.github.com/user/repos"
       gh init
       ;;
     private)
-      curl -X PATCH -H "$auth" -d '{"private":true}' "https://api.github.com/repos/$user/$repo";
+      curl -X PATCH -H "$auth" -d '{"private":true}' "https://api.github.com/repos/$user/$repo"
       ;;
     public)
-      curl -X PATCH -H "$auth" -d '{"private":false}' "https://api.github.com/repos/$user/$repo";
+      curl -X PATCH -H "$auth" -d '{"private":false}' "https://api.github.com/repos/$user/$repo"
       ;;
     init)
       [[ -d .git ]] && echo "$(sol r)Already has a $(sol g).git$(sol x)" && return
@@ -343,12 +346,16 @@ gh () {
       ;;
     delete)
       isyes "$(sol r)Do you really want to delete '$(sol g)$user/$repo$(sol r)'?$(sol x)" || return
-      curl -X DELETE -H "$auth" "https://api.github.com/repos/$user/$repo";
+      curl -X DELETE -H "$auth" "https://api.github.com/repos/$user/$repo"
       rm -rf "$HOME/repos/$repo"
       rm -rf "$HOME/go/src/github.com/$user/$repo"
       ;;
+    gobadges)
+      echo "[![GoDoc](https://godoc.org/github.com/$user/$repo?status.svg)](https://godoc.org/github.com/$user/$repo)"
+      echo "[![Go Report Card](https://goreportcard.com/badge/github.com/$user/$repo)](https://goreportcard.com/report/github.com/$user/$repo)"
+      echo "[![Coverage](https://gocover.io/_badge/github.com/$user/$repo)](https://gocover.io/github.com/$user/$repo)"
+      echo
+      ;;
   esac
-} && export gh && complete -W "create init delete private public" gh
-
-export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild gott
+} && export -f gh && complete -W "create init delete private public gobadges" gh
 
