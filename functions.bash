@@ -321,13 +321,17 @@ export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2n
 
 gh () {
   local auth="Authorization: token $(cat $HOME/repos/private/tokens/gh)"
-  local user=$(git config --get user.name)
+  local user=$(basename $(dirname $PWD))
   local repo=$(basename $PWD)
   [[ -n "$2" ]] && repo="$2"
+  [[ -n "$3" ]] && user="$3"
   case "$1" in
     create)
       curl -X POST -H "$auth" -d '{"name":"'"$repo"'","private":true}' "https://api.github.com/user/repos"
       gh init
+      ;;
+    show)
+      curl -X GET -H "$auth" "https://api.github.com/repos/$user/$repo"
       ;;
     clone)
       git clone git@github.com:$user/$repo
