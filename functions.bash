@@ -329,6 +329,9 @@ gh () {
       curl -X POST -H "$auth" -d '{"name":"'"$repo"'","private":true}' "https://api.github.com/user/repos"
       gh init
       ;;
+    clone)
+      git clone git@github.com:$user/$repo
+      ;;
     private)
       curl -X PATCH -H "$auth" -d '{"private":true}' "https://api.github.com/repos/$user/$repo"
       ;;
