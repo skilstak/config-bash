@@ -28,7 +28,7 @@ HISTCONTROL=ignoredups:ignorespace
 export PROMPT_COMMAND="history -a; history -c; history -r"
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 set -o notify
-set -o noclobber
+#set -o noclobber
 set -o ignoreeof
 set bell-style none
 #set +h # disable hashing

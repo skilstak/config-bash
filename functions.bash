@@ -381,9 +381,16 @@ upper () {
   echo ${1^^}
 } && export -f upper
 
+weekday () {
+  echo $(lower $(date +"%A"))
+} && export -f weekday
+
+
 month () {
   echo $(lower $(date +"%B"))
 } && export -f month
 
-
+year () {
+  echo $(lower $(date +"%Y"))
+} && export -f year
 
