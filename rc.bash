@@ -91,6 +91,9 @@ export LESS_TERMCAP_so=$(sol b)
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$(sol v)
 
+# too much wierd, unexplainable old stuff cached still
+export GOPROXY=direct
+
 # Node Version Manager
 export NVM_DIR="$HOME/repos/config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

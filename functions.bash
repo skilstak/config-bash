@@ -334,7 +334,14 @@ gh () {
       curl -X GET -H "$auth" "https://api.github.com/repos/$user/$repo"
       ;;
     clone)
-      git clone git@github.com:$user/$repo
+      mkdir -p ~/repos/$user
+      git clone git@github.com:$user/$repo ~/repos/$user/$repo
+      cd ~/repos/$user/$repo
+      ;;
+    goclone)
+      mkdir -p ~/go/src/github.com/$user
+      git clone git@github.com:$user/$repo ~/go/src/github.com/$user/$repo
+      cd ~/go/src/github.com/$user/$repo
       ;;
     private)
       curl -X PATCH -H "$auth" -d '{"private":true}' "https://api.github.com/repos/$user/$repo"
