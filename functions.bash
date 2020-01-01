@@ -375,8 +375,15 @@ gh () {
 
 lower () {
   echo ${1,,}
-}
+} && export -f lower
 
 upper () {
   echo ${1^^}
-}
+} && export -f upper
+
+month () {
+  echo $(lower $(date +"%B"))
+} && export -f month
+
+
+
