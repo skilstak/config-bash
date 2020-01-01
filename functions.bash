@@ -373,3 +373,10 @@ gh () {
   esac
 } && export -f gh && complete -W "create init delete private public gobadges" gh
 
+lower () {
+  echo ${1,,}
+}
+
+upper () {
+  echo ${1^^}
+}
