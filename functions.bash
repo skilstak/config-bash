@@ -338,6 +338,9 @@ gh () {
       git clone git@github.com:$user/$repo ~/repos/$user/$repo
       cd ~/repos/$user/$repo
       ;;
+    fork)
+      curl -X POST -H "$auth" -d '' "https://api.github.com/repos/$user/$repo/forks" 
+      ;;
     goclone)
       mkdir -p ~/go/src/github.com/$user
       git clone git@github.com:$user/$repo ~/go/src/github.com/$user/$repo
@@ -365,6 +368,7 @@ gh () {
       rm -rf "$HOME/go/src/github.com/$user/$repo"
       ;;
     gobadges)
+      echo "![WIP](https://img.shields.io/badge/status-wip-red)"
       echo "[![GoDoc](https://godoc.org/github.com/$user/$repo?status.svg)](https://godoc.org/github.com/$user/$repo)"
       echo "[![Go Report Card](https://goreportcard.com/badge/github.com/$user/$repo)](https://goreportcard.com/report/github.com/$user/$repo)"
       echo "[![Coverage](https://gocover.io/_badge/github.com/$user/$repo)](https://gocover.io/github.com/$user/$repo)"
