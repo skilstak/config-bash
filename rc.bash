@@ -24,6 +24,8 @@ $HOME/.cargo/bin:\
 /sbin:\
 /bin
 
+export MANPATH=$HOME/man
+
 HISTCONTROL=ignoredups:ignorespace
 export PROMPT_COMMAND="history -a; history -c; history -r"
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
