@@ -24,8 +24,6 @@ $HOME/.cargo/bin:\
 /sbin:\
 /bin
 
-export MANPATH=$HOME/man
-
 HISTCONTROL=ignoredups:ignorespace
 export PROMPT_COMMAND="history -a; history -c; history -r"
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -35,9 +33,11 @@ set -o ignoreeof
 set bell-style none
 #set +h # disable hashing
 set -o vi
+
 shopt -s checkwinsize
 shopt -s histappend
 shopt -s expand_aliases
+shopt -s nullglob
 
 [[ $PLATFORM != mac ]] && shopt -s globstar
 

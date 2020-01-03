@@ -5,33 +5,31 @@ eject () {
   local mpoint=$path/$first
   [[ -z "$first" ]] && echo Nothing to eject. && return
   umount $mpoint && echo $first ejected || echo Could not eject.
-}
+} && export -f eject
 
 usb () {
   local path=/media/$USER
   local first=$(ls -1 $path | head -1)
   echo $path/$first
-}
+} && export -f usb
 
 cdusb () {
   cd $(usb)
-}
+} && export -f cdusb
 
-mvlast () {
-  if [ -d ./assets ]; then
-    mv "$(lastdown)" ./assets/$1
-  else
-    mv "$(lastdown)" ./$1
-  fi
-}
+alias lasttouched="/bin/ls -1 -dtr * | tail -1"
+alias lastimage="/bin/ls -1 -dtr *.{img,iso} 2>/dev/null | tail -1"
 
-mvlastpic () {
-  if [ -d ./assets ]; then
-    mv "`lastpic`" ./assets/$1
-  else
-    mv "`lastpic`" ./$1
-  fi
-}
+newest () {
+  IFS=$'\n'
+  f=($(ls -1 --color=never -trd ${1:-.}/*))
+  echo ${f[-1]}
+} && export -f newest
+
+lastdown () { echo "$(newest ~/Downloads)"; } && export -f lastdown
+lastpic () { echo "$(newest ~/Pictures)"; } && export -f lastpic
+mvlast () { mv "$(lastdown)" ./$1; } && export -f mvlast
+mvlastpic () { mv "$(lastpic)" ./$1; } && export -f mvlastpic
 
 howin() {
   where="$1"; shift
@@ -160,16 +158,16 @@ _ssh() {
   COMPREPLY=($(compgen -W "$(ssh-hosts)" -- ${COMP_WORDS[COMP_CWORD]}))
 } && complete -F _ssh ssh
 
-lsrepo () {
+lsrepos () {
   local repohome=$HOME/repos
   [[ -n "$1" ]] && repohome=$1
-  local repos=($(ls -d $repohome/**/.git))
+  local repos=($(/bin/ls -d $repohome/**/.git))
   for i in ${repos[@]}; do
     i=${i%\/.git}
     i=${i#$repohome\/}
     echo $i
   done
-}
+} && export -f lsrepos
 
 repo () {
   local r=$1
@@ -177,7 +175,7 @@ repo () {
   cd $HOME/repos/$r
 } &&
 _repo() {
-  COMPREPLY=($(compgen -W "$(lsrepo)" -- ${COMP_WORDS[COMP_CWORD]}))
+  COMPREPLY=($(compgen -W "$(lsrepos)" -- ${COMP_WORDS[COMP_CWORD]}))
 } && complete -F _repo repo && alias r=repo && complete -F _repo r
 
 testemail () {
@@ -317,7 +315,7 @@ godistbuild () {
 }
 
 # TODO add these back to the functions where they are defined for better cutting and pasting
-export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk pubkey ssh-hosts lsrepo lsrepo testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild gott
+export -f eject usb cdusb mvlast mvlastpic howin grepall vic tstamp now hnow h2now h3now h4now h5now h6now 80cols ex isyes urlencode duck google zeroblk pubkey ssh-hosts testemail monitor funcsin change-user-name is-valid-username preview save gocd godistbuild gott
 
 gh () {
   local auth="Authorization: token $(cat $HOME/repos/private/tokens/gh)"
@@ -373,6 +371,9 @@ gh () {
       echo "[![Go Report Card](https://goreportcard.com/badge/github.com/$user/$repo)](https://goreportcard.com/report/github.com/$user/$repo)"
       echo "[![Coverage](https://gocover.io/_badge/github.com/$user/$repo)](https://gocover.io/github.com/$user/$repo)"
       echo
+      ;;
+    *)
+      cd ~/repos/github.com/$(git config user.name)
       ;;
   esac
 } && export -f gh && complete -W "create init delete private public gobadges" gh
